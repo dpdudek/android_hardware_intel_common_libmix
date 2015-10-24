@@ -11,7 +11,6 @@ LOCAL_SRC_FILES := \
     VideoDecoderBase.cpp \
     VideoDecoderWMV.cpp \
     VideoDecoderMPEG4.cpp \
-    VideoDecoderMPEG2.cpp \
     VideoDecoderAVC.cpp \
     VideoDecoderTrace.cpp
 

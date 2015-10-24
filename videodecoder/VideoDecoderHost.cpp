@@ -16,7 +16,6 @@
 
 #include "VideoDecoderWMV.h"
 #include "VideoDecoderMPEG4.h"
-#include "VideoDecoderMPEG2.h"
 #include "VideoDecoderAVC.h"
 
 #ifdef USE_INTEL_SECURE_AVC
@@ -50,9 +49,6 @@ IVideoDecoder* createVideoDecoder(const char* mimeType) {
                strcasecmp(mimeType, "video/h263") == 0 ||
                strcasecmp(mimeType, "video/3gpp") == 0) {
         VideoDecoderMPEG4 *p = new VideoDecoderMPEG4(mimeType);
-        return (IVideoDecoder *)p;
-    } else if (strcasecmp(mimeType, "video/mpeg2") == 0) {
-        VideoDecoderMPEG2 *p = new VideoDecoderMPEG2(mimeType);
         return (IVideoDecoder *)p;
     }
 #ifdef USE_INTEL_SECURE_AVC
