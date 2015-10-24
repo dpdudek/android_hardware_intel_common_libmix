@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include <assert.h>
 
+#define __USE_GNU
 #include "vbp_thread.h"
 #include "vbp_loader.h"
 
