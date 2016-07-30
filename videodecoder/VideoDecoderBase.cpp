@@ -1650,7 +1650,7 @@ void VideoDecoderBase::setRenderRect() {
 
     VADisplayAttribute render_rect;
     render_rect.type = VADisplayAttribRenderRect;
-#ifdef ASUS_ZENFONE2_LP_BLOBS
+#if defined(ASUS_ZENFONE2_LP_BLOBS) || defined(MIXVBP_KK_BLOBS)
     render_rect.value = (long) &rect;
 #else
     render_rect.attrib_ptr = &rect;
@@ -1667,7 +1667,7 @@ void VideoDecoderBase::setColorSpaceInfo(int32_t colorMatrix, int32_t videoRange
 
     ITRACE("set colorMatrix: 0x%x ", colorMatrix);
     VADisplayAttribute cm;
-#ifdef ASUS_ZENFONE2_LP_BLOBS
+#if defined(ASUS_ZENFONE2_LP_BLOBS) || defined(MIXVBP_KK_BLOBS)
     ptr = (void **) &cm.value;
 #else
     ptr = &cm.attrib_ptr;
