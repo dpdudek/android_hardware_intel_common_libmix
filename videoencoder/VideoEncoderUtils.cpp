@@ -160,7 +160,7 @@ static int gfx_Blit(buffer_handle_t src, buffer_handle_t dest,
     }
 
 #ifdef MRFLD_GFX
-#ifdef ASUS_ZENFONE2_LP_BLOBS
+#if defined(ASUS_ZENFONE2_LP_BLOBS) || defined(MIXVBP_KK_BLOBS)
     IMG_gralloc_module_public_t* GrallocMod = (IMG_gralloc_module_public_t*)gModule;
     err = GrallocMod->Blit(GrallocMod, src, dest, w, h, 0, 0, 0, 0);
 #else
@@ -205,7 +205,14 @@ Encode_Status GetGfxBufferInfo(intptr_t handle, ValueInfo& vinfo){
 
     if (h->iFormat == HAL_PIXEL_FORMAT_NV12) {
     #ifdef MRFLD_GFX
-        vinfo.lumaStride = (h->iWidth + 63) & ~63; //64 aligned
+        #ifdef MIXVBP_KK_BLOBS
+            if((h->usage & GRALLOC_USAGE_HW_CAMERA_READ) || (h->usage & GRALLOC_USAGE_HW_CAMERA_WRITE) )
+                vinfo.lumaStride = (h->iWidth + 63) & ~63; //64 aligned
+            else
+                vinfo.lumaStride = (h->iWidth + 31) & ~31; //32 aligned
+        #else
+            vinfo.lumaStride = (h->iWidth + 63) & ~63; //64 aligned
+        #endif
     #else //on CTP
         if (h->iWidth > 512)
             vinfo.lumaStride = (h->iWidth + 63) & ~63;  //64 aligned
