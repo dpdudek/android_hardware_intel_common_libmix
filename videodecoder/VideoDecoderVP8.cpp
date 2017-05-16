@@ -69,7 +69,6 @@ void VideoDecoderVP8::updateFormatInfo(vbp_data_vp8 *data) {
     // video_range has default value of 0. Y ranges from 16 to 235.
     mVideoFormatInfo.videoRange = 0;
 
-#ifndef MIXVBP_KK_BLOBS
     switch (data->codec_data->clr_type) {
         case 0:
             mVideoFormatInfo.colorMatrix = VA_SRC_BT601;
@@ -79,9 +78,6 @@ void VideoDecoderVP8::updateFormatInfo(vbp_data_vp8 *data) {
             mVideoFormatInfo.colorMatrix = 0;
             break;
     }
-#else
-    mVideoFormatInfo.colorMatrix = 0;
-#endif
 
     mVideoFormatInfo.cropLeft = data->codec_data->crop_left;
     mVideoFormatInfo.cropRight = data->codec_data->crop_right;
