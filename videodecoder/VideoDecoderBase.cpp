@@ -1689,6 +1689,7 @@ void VideoDecoderBase::setRenderRect() {
 }
 
 void VideoDecoderBase::setColorSpaceInfo(int32_t colorMatrix, int32_t videoRange) {
+    void **ptr;
     ITRACE("set colorMatrix: 0x%x ", colorMatrix);
     VADisplayAttribute cm;
 #ifdef ASUS_ZENFONE2_LP_BLOBS
@@ -1698,18 +1699,17 @@ void VideoDecoderBase::setColorSpaceInfo(int32_t colorMatrix, int32_t videoRange
 #endif
     cm.type = VADisplayAttribCSCMatrix;
     if (colorMatrix == VA_SRC_BT601) {
-        cm.attrib_ptr = &s601;
+        *ptr = &s601;
     } else if (colorMatrix == VA_SRC_BT709) {
-        cm.attrib_ptr = &s709;
+        *ptr = &s709;
     } else {
       // if we can't get the color matrix or it's not BT601 or BT709
       // we decide the color matrix according to clip resolution
       if (mVideoFormatInfo.width < 1280 && mVideoFormatInfo.height < 720)
-          cm.attrib_ptr = &s601;
+          *ptr = &s601;
       else
-          cm.attrib_ptr = &s709;
+          *ptr = &s709;
     }
-
     VAStatus ret = vaSetDisplayAttributes(mVADisplay, &cm, 1);
 
     if (ret) {
