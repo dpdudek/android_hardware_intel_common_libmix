@@ -19,6 +19,7 @@
 
 #include <va/va.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 // format specific data, for future extension.
 struct VideoExtensionBuffer {
