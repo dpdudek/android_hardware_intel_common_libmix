@@ -152,12 +152,18 @@ static int gfx_Blit(buffer_handle_t src, buffer_handle_t dest,
         }
     }
 
+#ifdef ASUS_ZENFONE2_LP_BLOBS
+    IMG_gralloc_module_public_t* GrallocMod = (IMG_gralloc_module_public_t*)gModule;
+    err = GrallocMod->Blit(GrallocMod, src, dest, w, h, 0, 0, 0, 0);
+#else
     err = gralloc_blit_handle_to_handle_img(gGralloc, src, dest, w, h, 0, 0,
                                             0, -1, &releaseFence);
     if (releaseFence >= 0) {
         sync_wait(releaseFence, -1);
         close(releaseFence);
     }
+#endif
+
     if (err) {
         LOG_E("Blit failed %d (%s)", err, strerror(-err));
         return -1;
