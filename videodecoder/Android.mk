@@ -2,6 +2,10 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
+ifeq ($(ASUS_ZENFONE2_LP_BLOBS),true)
+LOCAL_CFLAGS += -DASUS_ZENFONE2_LP_BLOBS
+endif
+
 ifeq ($(TARGET_HAS_ISV),true)
 LOCAL_CFLAGS += -DTARGET_HAS_ISV
 endif
