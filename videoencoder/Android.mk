@@ -84,6 +84,10 @@ ifeq ($(ENABLE_IMG_GRAPHICS),true)
     endif
 endif
 
+ifeq ($(ASUS_ZENFONE2_LP_BLOBS),true)
+LOCAL_CFLAGS += -DASUS_ZENFONE2_LP_BLOBS
+endif
+
 LOCAL_CFLAGS += -Werror
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := libva_videoencoder
@@ -109,6 +113,11 @@ ifeq ($(INTEL_VIDEO_XPROC_SHARING),true)
 LOCAL_SHARED_LIBRARIES := liblog libutils libbinder libgui \
                           libui libcutils libhardware
 endif
+
+ifeq ($(ASUS_ZENFONE2_LP_BLOBS),true)
+LOCAL_CFLAGS += -DASUS_ZENFONE2_LP_BLOBS
+endif
+
 LOCAL_CFLAGS += -Werror
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := libintelmetadatabuffer
